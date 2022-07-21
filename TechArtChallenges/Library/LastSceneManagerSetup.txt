@@ -1,5 +1,0 @@
-sceneSetups:
-- path: Assets/RTVFX_Sketch#54_ShieldChallenge/Scenes/MainShield.unity
-  isLoaded: 1
-  isActive: 1
-  isSubScene: 0
