@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: BubbleSoapShield
-  m_Shader: {fileID: -6465566751694194690, guid: a86fd6156cbf20a418319c6ac53fb888, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 62619f55299c6474aa8a23c9504374e2, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
