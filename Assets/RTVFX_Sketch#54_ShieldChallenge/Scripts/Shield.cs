@@ -9,8 +9,11 @@ public class Shield : MonoBehaviour
     [SerializeField] float _DisplacementMagnitude;
     [SerializeField] float _LerpSpeed;
     [SerializeField] float _DisolveSpeed;
+    [SerializeField] float _HitDisolveSpeed;
     bool _shieldOn;
     Coroutine _disolveCoroutine;
+
+    private float _hitDissolveTarget;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +36,14 @@ public class Shield : MonoBehaviour
         {
             OpenCloseShield();
         }
+
+        var currentHitDissolve = _renderer.material.GetFloat("_HitDissolve");
+
+        var hitDissolve = Mathf.Lerp(currentHitDissolve, _hitDissolveTarget, Time.deltaTime * _HitDisolveSpeed);
+        
+        _renderer.material.SetFloat("_HitDissolve", hitDissolve);
+
+
     }
 
     public void HitShield(Vector3 hitPos)
@@ -59,6 +70,8 @@ public class Shield : MonoBehaviour
 
     IEnumerator Coroutine_HitDisplacement()
     {
+        _renderer.material.SetFloat("_HitDissolve", 0f);
+        _hitDissolveTarget = 1f;
         float lerp = 0;
         while (lerp < 1)
         {
@@ -66,6 +79,9 @@ public class Shield : MonoBehaviour
             lerp += Time.deltaTime * _LerpSpeed;
             yield return null;
         }
+        _hitDissolveTarget = 0f;
+
+        
     }
 
     IEnumerator Coroutine_DisolveShield(float target)

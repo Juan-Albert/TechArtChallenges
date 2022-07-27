@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.39824653, g: 0.6605761, b: 0.99999946, a: 1}
+  m_IndirectSpecularColor: {r: 0.40537223, g: 0.65031034, b: 0.99999946, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -506,6 +506,7 @@ MonoBehaviour:
   _DisplacementMagnitude: 0.09
   _LerpSpeed: 2
   _DisolveSpeed: 1
+  _HitDisolveSpeed: 5
 --- !u!135 &1453033457
 SphereCollider:
   m_ObjectHideFlags: 0
