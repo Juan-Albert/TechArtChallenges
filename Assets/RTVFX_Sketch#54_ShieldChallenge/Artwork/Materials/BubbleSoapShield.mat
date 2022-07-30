@@ -97,6 +97,8 @@ Material:
     - _DisplacementStrength: 0
     - _DstBlend: 0
     - _EnvironmentReflections: 1
+    - _GlobalDissolve: 0
+    - _GlobalDissolveEdge: 0.005
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
