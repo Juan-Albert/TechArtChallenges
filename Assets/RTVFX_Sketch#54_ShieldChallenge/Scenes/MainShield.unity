@@ -510,65 +510,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2012181044}
     m_Modifications:
-    - target: {fileID: 1453033456, guid: 05d657bc570c2784ebe8ca7518c45800, type: 3}
-      propertyPath: _HitDisolveSpeed
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1453033456, guid: 05d657bc570c2784ebe8ca7518c45800, type: 3}
-      propertyPath: _DisplacementMagnitude
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1453033456, guid: 05d657bc570c2784ebe8ca7518c45800, type: 3}
-      propertyPath: _DisplacementCurve.m_Curve.Array.data[1].time
-      value: 0.4996338
-      objectReference: {fileID: 0}
-    - target: {fileID: 1453033456, guid: 05d657bc570c2784ebe8ca7518c45800, type: 3}
-      propertyPath: _DisplacementCurve.m_Curve.Array.data[2].time
-      value: 0.99967825
-      objectReference: {fileID: 0}
-    - target: {fileID: 1453033456, guid: 05d657bc570c2784ebe8ca7518c45800, type: 3}
-      propertyPath: _DisplacementCurve.m_Curve.Array.data[0].value
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1453033456, guid: 05d657bc570c2784ebe8ca7518c45800, type: 3}
-      propertyPath: _DisplacementCurve.m_Curve.Array.data[1].value
-      value: 0.99765587
-      objectReference: {fileID: 0}
-    - target: {fileID: 1453033456, guid: 05d657bc570c2784ebe8ca7518c45800, type: 3}
-      propertyPath: _DisplacementCurve.m_Curve.Array.data[2].value
-      value: -0.0012075251
-      objectReference: {fileID: 0}
-    - target: {fileID: 1453033456, guid: 05d657bc570c2784ebe8ca7518c45800, type: 3}
-      propertyPath: _DisplacementCurve.m_Curve.Array.data[1].inSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1453033456, guid: 05d657bc570c2784ebe8ca7518c45800, type: 3}
-      propertyPath: _DisplacementCurve.m_Curve.Array.data[1].inWeight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1453033456, guid: 05d657bc570c2784ebe8ca7518c45800, type: 3}
-      propertyPath: _DisplacementCurve.m_Curve.Array.data[1].outSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1453033456, guid: 05d657bc570c2784ebe8ca7518c45800, type: 3}
-      propertyPath: _DisplacementCurve.m_Curve.Array.data[2].inWeight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1453033456, guid: 05d657bc570c2784ebe8ca7518c45800, type: 3}
-      propertyPath: _DisplacementCurve.m_Curve.Array.data[0].outWeight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1453033456, guid: 05d657bc570c2784ebe8ca7518c45800, type: 3}
-      propertyPath: _DisplacementCurve.m_Curve.Array.data[1].outWeight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1453033456, guid: 05d657bc570c2784ebe8ca7518c45800, type: 3}
-      propertyPath: _DisplacementCurve.m_Curve.Array.data[1].tangentMode
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1361766757017201814, guid: 05d657bc570c2784ebe8ca7518c45800, type: 3}
       propertyPath: m_Name
       value: ShieldCaster
+      objectReference: {fileID: 0}
+    - target: {fileID: 6765046890830013554, guid: 05d657bc570c2784ebe8ca7518c45800, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.132
+      objectReference: {fileID: 0}
+    - target: {fileID: 6765046890830013554, guid: 05d657bc570c2784ebe8ca7518c45800, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.285
+      objectReference: {fileID: 0}
+    - target: {fileID: 6765046890830013554, guid: 05d657bc570c2784ebe8ca7518c45800, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6853196775343438882, guid: 05d657bc570c2784ebe8ca7518c45800, type: 3}
       propertyPath: m_RootOrder
@@ -613,10 +569,6 @@ PrefabInstance:
     - target: {fileID: 6853196775343438882, guid: 05d657bc570c2784ebe8ca7518c45800, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7885288426641322724, guid: 05d657bc570c2784ebe8ca7518c45800, type: 3}
-      propertyPath: startDelay.scalar
-      value: 0.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05d657bc570c2784ebe8ca7518c45800, type: 3}

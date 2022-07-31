@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Shield : MonoBehaviour
 {
@@ -14,7 +17,9 @@ public class Shield : MonoBehaviour
     [Header("Components")]
     public Animator shieldCasterAnimator;
     public ParticleSystem castShieldVFX, breakShieldVFX;
-
+    public GameObject proyectile;
+    public ParticleSystem hitVFX;
+    
     
     bool _shieldOn;
     bool _shieldDestroyed;
@@ -52,16 +57,21 @@ public class Shield : MonoBehaviour
             DestroyShield();
         }
 
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            CastProyectile();
+        }
+
     }
 
-    public void HitShield(Vector3 hitPos)
+    private void HitShield(Vector3 hitPos)
     {
         _renderer.material.SetVector("_HitPos", hitPos);
         StopAllCoroutines();
         StartCoroutine(Coroutine_HitDisplacement());
     }
 
-    public void OpenCloseShield()
+    private void OpenCloseShield()
     {
         float target = _shieldOn ? 1 : 0;
 
@@ -79,7 +89,7 @@ public class Shield : MonoBehaviour
         _disolveCoroutine = StartCoroutine(Coroutine_DisolveShield(target));
     }
 
-    public void DestroyShield()
+    private void DestroyShield()
     {
         float target = _shieldDestroyed ? 0 : 1;
 
@@ -95,6 +105,17 @@ public class Shield : MonoBehaviour
             StopCoroutine(_destroyCoroutine);
         }
         _destroyCoroutine = StartCoroutine(Coroutine_DestroyShield(target));
+    }
+
+    private void CastProyectile()
+    {
+        Transform camera = Camera.main.transform;
+        Vector3 spawnPos = camera.position - camera.forward * 3 + camera.right * Random.Range(-2, 2) +
+                           camera.up * Random.Range(-2, 2);
+
+        GameObject newProyectile = Instantiate(proyectile, spawnPos, Quaternion.identity);
+
+        newProyectile.transform.DOJump(transform.position, Random.Range(0.5f,2), 1, 1f);
     }
 
     IEnumerator Coroutine_HitDisplacement()
@@ -132,6 +153,31 @@ public class Shield : MonoBehaviour
             _renderer.material.SetFloat("_GlobalDissolve", Mathf.Lerp(start, target, lerp));
             lerp += Time.deltaTime * _DestroyDissolveSpeed;
             yield return null;
+        }
+    }
+
+    IEnumerator DelayDestroy(GameObject gameObject, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Proyectile"))
+        {
+
+            Vector3 hitPos = other.ClosestPoint(other.transform.position);
+            
+            other.GetComponent<ParticleSystem>().Stop();
+
+            
+            StartCoroutine(DelayDestroy(other.gameObject, 1f));
+
+            hitVFX.transform.position = hitPos;
+            hitVFX.Play();
+            
+            HitShield(hitPos);
         }
     }
 }
