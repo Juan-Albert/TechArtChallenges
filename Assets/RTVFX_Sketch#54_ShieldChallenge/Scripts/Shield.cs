@@ -4,16 +4,25 @@ using UnityEngine;
 
 public class Shield : MonoBehaviour
 {
-    Renderer _renderer;
+    [Header("Values")]
     [SerializeField] AnimationCurve _DisplacementCurve;
     [SerializeField] float _DisplacementMagnitude;
-    [SerializeField] float _LerpSpeed;
+    [SerializeField] float _DestroyDissolveSpeed;
     [SerializeField] float _DisolveSpeed;
     [SerializeField] float _HitDisolveSpeed;
-    bool _shieldOn;
-    Coroutine _disolveCoroutine;
 
-    private float _hitDissolveTarget;
+    [Header("Components")]
+    public Animator shieldCasterAnimator;
+    public ParticleSystem castShieldVFX, breakShieldVFX;
+
+    
+    bool _shieldOn;
+    bool _shieldDestroyed;
+    Coroutine _disolveCoroutine;
+    Coroutine _destroyCoroutine;
+
+    Renderer _renderer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,17 +41,16 @@ public class Shield : MonoBehaviour
                 HitShield(hit.point);
             }
         }
+        
         if (Input.GetKeyDown(KeyCode.F))
         {
             OpenCloseShield();
         }
 
-        var currentHitDissolve = _renderer.material.GetFloat("_HitDissolve");
-
-        var hitDissolve = Mathf.Lerp(currentHitDissolve, _hitDissolveTarget, Time.deltaTime * _HitDisolveSpeed);
-        
-        _renderer.material.SetFloat("_HitDissolve", hitDissolve);
-
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            DestroyShield();
+        }
 
     }
 
@@ -55,11 +63,14 @@ public class Shield : MonoBehaviour
 
     public void OpenCloseShield()
     {
-        float target = 1;
-        if (_shieldOn)
+        float target = _shieldOn ? 1 : 0;
+
+        if (!_shieldOn)
         {
-            target = 0;
+            shieldCasterAnimator.SetTrigger("DoCastShield");
+            castShieldVFX.Play();
         }
+        
         _shieldOn = !_shieldOn;
         if (_disolveCoroutine != null)
         {
@@ -68,20 +79,36 @@ public class Shield : MonoBehaviour
         _disolveCoroutine = StartCoroutine(Coroutine_DisolveShield(target));
     }
 
+    public void DestroyShield()
+    {
+        float target = _shieldDestroyed ? 0 : 1;
+
+        if (!_shieldDestroyed)
+        {
+            breakShieldVFX.Play();
+        }
+        
+        _shieldDestroyed = !_shieldDestroyed;
+
+        if (_destroyCoroutine != null)
+        {
+            StopCoroutine(_destroyCoroutine);
+        }
+        _destroyCoroutine = StartCoroutine(Coroutine_DestroyShield(target));
+    }
+
     IEnumerator Coroutine_HitDisplacement()
     {
         _renderer.material.SetFloat("_HitDissolve", 0f);
-        _hitDissolveTarget = 1f;
         float lerp = 0;
         while (lerp < 1)
         {
-            _renderer.material.SetFloat("_DisplacementStrength", _DisplacementCurve.Evaluate(lerp) * _DisplacementMagnitude);
-            lerp += Time.deltaTime * _LerpSpeed;
+            _renderer.material.SetFloat("_HitDissolve", _DisplacementCurve.Evaluate(lerp) * _DisplacementMagnitude);
+            lerp += Time.deltaTime * _HitDisolveSpeed;
             yield return null;
         }
-        _hitDissolveTarget = 0f;
 
-        
+
     }
 
     IEnumerator Coroutine_DisolveShield(float target)
@@ -92,6 +119,18 @@ public class Shield : MonoBehaviour
         {
             _renderer.material.SetFloat("_Disolve", Mathf.Lerp(start, target, lerp));
             lerp += Time.deltaTime * _DisolveSpeed;
+            yield return null;
+        }
+    }
+
+    IEnumerator Coroutine_DestroyShield(float target)
+    {
+        float start = _renderer.material.GetFloat("_GlobalDissolve");
+        float lerp = 0;
+        while (lerp < 1)
+        {
+            _renderer.material.SetFloat("_GlobalDissolve", Mathf.Lerp(start, target, lerp));
+            lerp += Time.deltaTime * _DestroyDissolveSpeed;
             yield return null;
         }
     }
